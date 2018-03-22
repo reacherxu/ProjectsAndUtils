@@ -3,6 +3,8 @@ package com.sap.projectAndUtils;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Date;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -27,6 +29,14 @@ public class StringUtil {
 	@Test
 	public void testNull() {
 		assertTrue(StringUtils.isNotEmpty(" "));
-		
+	}
+	
+	/**
+	 * test StringFormat
+	 */
+	@Test
+	public void testStringFormat() {
+		String info = String.format("%s : %s","time",new Date());
+		System.out.println(info);
 	}
 }
