@@ -47,7 +47,7 @@ public class JsonUtil {
 	
 	public void generateJsonWithPrettyFormat() {
 		Person richard = new Person("Richard", "I350644", new Date(), true);
-		System.out.println(JSON.toJSONString(richard, false));
+		System.out.println(JSON.toJSONString(richard, true));
 	}
 	
 	public static void main(String[] args) {
