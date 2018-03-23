@@ -1,24 +1,33 @@
 package com.sap.dom4j;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Iterator;
 import java.util.List;
 
+import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
+import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Dom4jUtil {
-	
+
 	private final static Logger logger = LoggerFactory.getLogger(Dom4jUtil.class);
 
 	/**
 	 * note: 如果要用Xpath,必须要引入jar包，否则会报错
+	 * 从xml文件中读取，而且标签中有冒号
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -42,6 +51,9 @@ public class Dom4jUtil {
 		}
 	}
 
+	/**
+	 * read from a text
+	 */
 	@SuppressWarnings("unchecked")
 	@Test
 	public void readContent() {
@@ -62,5 +74,56 @@ public class Dom4jUtil {
 			logger.error(e.getMessage());
 		}
 
+	}
+
+	@Test
+	public void readNormalXml() {
+		// 创建解析器,读入xml文档
+		SAXReader reader = new SAXReader();
+		try {
+			Document document = reader.read(new File("resource/book.xml"));
+
+			// 获取文档的根节点
+			Element root = document.getRootElement();
+
+			// 将文档的XML转化为字符串
+			String rootXmlText = root.asXML();
+			System.out.println(rootXmlText);
+
+			// 取得某个节点的子节点
+			Element book = root.element("书");
+
+			// 对某个节点进行遍历
+			List<Element> books = root.elements("书");
+			for (Iterator<Element> it = books.iterator(); it.hasNext();) {
+				Element elem = it.next();
+
+				Element bookName = elem.element("书名");
+				System.out.println(String.format("%s = %s\n", bookName.getName(), bookName.getText()));
+				Element bookAuthor = elem.element("作者");
+				System.out.println(String.format("%s = %s\n", bookAuthor.getName(), bookAuthor.getText()));
+				Element bookPrice = elem.element("售价");
+				Attribute currency = bookPrice.attribute("币种");
+				System.out.println(String.format("%s = %s currency = %s\n", bookPrice.getName(), bookPrice.getText(),
+						currency.getText()));
+			}
+
+			// 添加内容
+			book.addElement("售价").setText("209元");
+
+			OutputFormat format = OutputFormat.createPrettyPrint();
+			format.setEncoding("UTF-8"); // 给格式化输出器指定一个码表，xml文档什么编码，格式化输出器就是什么编码
+			XMLWriter writer = new XMLWriter(new FileOutputStream("resource/book.xml"), format);
+			writer.write(document);
+			writer.close();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
