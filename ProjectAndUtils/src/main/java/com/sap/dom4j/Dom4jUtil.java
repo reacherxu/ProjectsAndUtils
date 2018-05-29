@@ -95,6 +95,7 @@ public class Dom4jUtil {
             Element book = root.element("书");
 
             // 对某个节点进行遍历
+            @SuppressWarnings("unchecked")
             List<Element> books = root.elements("书");
             for (Iterator<Element> it = books.iterator(); it.hasNext();) {
                 Element elem = it.next();
