@@ -121,7 +121,7 @@ public class Dom4jUtil {
             writer.write(document);
             writer.close();
         } catch (DocumentException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
