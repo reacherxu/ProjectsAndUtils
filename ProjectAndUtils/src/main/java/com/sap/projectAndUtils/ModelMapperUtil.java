@@ -4,6 +4,8 @@
  */
 package com.sap.projectAndUtils;
 
+import java.util.Optional;
+
 import org.junit.Test;
 import org.modelmapper.ModelMapper;
 
@@ -20,6 +22,7 @@ public class ModelMapperUtil {
     @Test
     public void testModelToDTO() {
         User user = new User();
+        System.out.println(user);
         user.setId(1L);
         user.setNickname("张三");
         user.setEmail("101@qq.com");
@@ -27,6 +30,21 @@ public class ModelMapperUtil {
         ModelMapper modelMapper = new ModelMapper();
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
         System.out.println(userDTO);
+    }
+
+    @Test
+    public void testOptional() {
+        User user = new User();
+        user.setId(1L);
+        user.setNickname("张三");
+        user.setEmail("101@qq.com");
+        user.setHonor("测试荣誉");
+
+        Optional<User> oUser = Optional.ofNullable(user);
+        oUser.ifPresent(u -> System.out.println("Username is: " + u.getNickname()));
+
+        Optional<User> oUser2 = Optional.ofNullable(null);
+        oUser2.ifPresent(u -> System.out.println("Username is: " + u.getNickname()));
     }
 
     class User {
