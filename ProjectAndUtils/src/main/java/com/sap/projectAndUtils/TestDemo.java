@@ -65,5 +65,9 @@ public class TestDemo {
         System.out.println(Boolean.valueOf("true") == Boolean.TRUE);
         System.out.println(Boolean.valueOf("TRUE") == Boolean.TRUE);
         System.out.println(Boolean.valueOf("false") == Boolean.TRUE);
+
+        System.out.println(".fer.fdfd".replaceAll("\\.", ""));
+
+        System.out.println(System.currentTimeMillis());
     }
 }
