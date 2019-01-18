@@ -1,9 +1,10 @@
 package com.sap.cdt.domain.enums;
 
 public enum ErrorType {
-                       MESSAGE(1, "message"), EXCEPTION(2, "exception");
+    MESSAGE(1, "message"),
+    EXCEPTION(2, "exception"),;
 
-    private int    key;
+    private int key;
     private String type;
 
     ErrorType(int key, String type) {
