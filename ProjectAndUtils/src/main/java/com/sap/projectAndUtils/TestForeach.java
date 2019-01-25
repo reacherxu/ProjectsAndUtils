@@ -46,6 +46,7 @@ public class TestForeach {
         list.add("0");
         list.add("1");
         for (String str : list) {
+        	System.out.println(str);
             list.remove("0");
         }
         System.out.println("只有两个元素，不会抛出异常" + list);
@@ -58,6 +59,7 @@ public class TestForeach {
         list.add("1");
         list.add("2");
         for (String str : list) {
+        	System.out.println(str);
             list.remove("0");
         }
         System.out.println("大于两个元素，会抛出异常" + list);
