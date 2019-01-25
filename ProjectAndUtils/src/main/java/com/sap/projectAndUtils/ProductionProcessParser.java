@@ -130,6 +130,7 @@ public class ProductionProcessParser extends XmlParser {
                 initialNodes.add(node);
             }
         }
+
         // 1.2 if not has pre-extensions, then add business service
         if (initialNodes.size() < bizServices.size()) {
             for (Node node : ppFlows) {
@@ -152,17 +153,6 @@ public class ProductionProcessParser extends XmlParser {
         return initialNodes;
     }
 
-    /**
-     * if don't has the pre-extensions, then get the initial node via ppFlow
-     * 
-     * @param node pp flow
-     * @return
-     */
-    private boolean isStartFlow(Node node) {
-
-
-        return false;
-    }
 
     /**
      * iteratively traverse the flow and only save the components

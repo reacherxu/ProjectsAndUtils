@@ -4,14 +4,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -20,9 +18,9 @@ import com.sap.cdt.domain.enums.MODRuntimeException;
 
 public class JsonUtil {
     class Person {
-        String  name;
-        String  id;
-        Date    birth;
+        String name;
+        String id;
+        Date birth;
         Boolean sex;
 
         public Person(String name, String id, Date birth, Boolean sex) {
@@ -67,30 +65,28 @@ public class JsonUtil {
 
     }
 
-    private final static Logger logger           = LoggerFactory.getLogger(JsonUtil.class);
+    private final static Logger logger = LoggerFactory.getLogger(JsonUtil.class);
 
-    public static final String  EMPTY_JSON       = "{}";
+    public static final String EMPTY_JSON = "{}";
 
-    public static final String  DEFAULT_CONTENTS = "contents";
+    public static final String DEFAULT_CONTENTS = "contents";
 
     /**
      * add a property for a json text
      * 
-     * @param jsonText  source json text
-     * @param content   root conent
-     * @param properties    conditions
+     * @param jsonText source json text
+     * @param content root conent
+     * @param properties conditions
      * @return
      */
-    public static JsonObject addExpireProperty(String jsonText, String content,
-                                               Map<String, String> properties) {
+    public static JsonObject addExpireProperty(String jsonText, String content, Map<String, String> properties) {
         JsonObject target = null;
         try {
 
             JsonParser jsonParser = new JsonParser();
             // get root json object
             JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonText);
-            if (StringUtils.isBlank(jsonText)
-                || StringUtils.equals(EMPTY_JSON, jsonObject.toString())) {
+            if (StringUtils.isBlank(jsonText) || StringUtils.equals(EMPTY_JSON, jsonObject.toString())) {
                 throw new MODRuntimeException("parse JSON error", ErrorCode.ERR_PARSE_CONTENT);
             }
             AssertUtil.assertTrue(properties.size() >= 1, ErrorCode.ERR_PARSE_CONTENT);
@@ -108,8 +104,7 @@ public class JsonUtil {
 
                 boolean flag = true;
                 for (String propertyName : properties.keySet()) {
-                    if (StringUtils.equals(properties.get(propertyName),
-                        subJsonObject.get(propertyName).getAsString())) {
+                    if (StringUtils.equals(properties.get(propertyName), subJsonObject.get(propertyName).getAsString())) {
                         flag = flag && true;
                     } else {
                         flag = flag && false;
@@ -134,7 +129,7 @@ public class JsonUtil {
     @Test
     public void generateJsonWithPrettyFormat() {
         Person richard = new Person("Richard", "I350644", new Date(), true);
-        System.out.println(JSON.toJSONString(richard, true));
+        System.out.println(new Gson().toJson(richard));
     }
 
     /**
@@ -145,7 +140,7 @@ public class JsonUtil {
 
         String jsonText = "{\"students\":[{\"name\":\"A\",\"age\":19},{\"name\":\"B\",\"age\":19},{\"name\":\"C\",\"age\":19}],\"num\":3}";
 
-        //创建json解析器
+        // 创建json解析器
         JsonParser jsonParser = new JsonParser();
         // 通过parse方法获取最外层的json对象。
         JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonText);
@@ -166,7 +161,8 @@ public class JsonUtil {
 
     @Test
     public void testAddExpirePropertySuccess() {
-        String validJsonText = "{\"contents\":{\"4ea85026-ff21-48c9-a7fc-0560c4e70730\":{\"classDefinition\":\"sap.modeling.cdt.msgFlow.Service\",\"name\":\"bikeAdd\",\"sId\":\"aef1fa35-a12c-42b6-8429-ddbf3006bc5f\",\"displayName\":\"bikeAdd\"},\"1a9b61ac-09d8-42b5-9b3a-eca6304d9f77\":{\"classDefinition\":\"sap.modeling.cdt.msgFlow.ui.ServiceSymbol\",\"x\":-7263,\"y\":-7531,\"width\":160,\"height\":30,\"object\":\"4ea85026-ff21-48c9-a7fc-0560c4e70730\"},\"272f1ad5-af56-44e1-85ee-076630bae401\":{\"classDefinition\":\"sap.modeling.cdt.msgFlow.Service\",\"name\":\"bikeDelete\",\"sId\":\"5026b789-db70-450e-984a-7aa2f4ad4ed7\",\"displayName\":\"bikeDelete\"},\"1508cc32-5332-4f9b-ab4a-98afd691f239\":{\"classDefinition\":\"sap.modeling.cdt.msgFlow.ui.ServiceSymbol\",\"x\":-7263,\"y\":-7491,\"width\":160,\"height\":30,\"object\":\"272f1ad5-af56-44e1-85ee-076630bae401\"}}}";
+        String validJsonText =
+                "{\"contents\":{\"4ea85026-ff21-48c9-a7fc-0560c4e70730\":{\"classDefinition\":\"sap.modeling.cdt.msgFlow.Service\",\"name\":\"bikeAdd\",\"sId\":\"aef1fa35-a12c-42b6-8429-ddbf3006bc5f\",\"displayName\":\"bikeAdd\"},\"1a9b61ac-09d8-42b5-9b3a-eca6304d9f77\":{\"classDefinition\":\"sap.modeling.cdt.msgFlow.ui.ServiceSymbol\",\"x\":-7263,\"y\":-7531,\"width\":160,\"height\":30,\"object\":\"4ea85026-ff21-48c9-a7fc-0560c4e70730\"},\"272f1ad5-af56-44e1-85ee-076630bae401\":{\"classDefinition\":\"sap.modeling.cdt.msgFlow.Service\",\"name\":\"bikeDelete\",\"sId\":\"5026b789-db70-450e-984a-7aa2f4ad4ed7\",\"displayName\":\"bikeDelete\"},\"1508cc32-5332-4f9b-ab4a-98afd691f239\":{\"classDefinition\":\"sap.modeling.cdt.msgFlow.ui.ServiceSymbol\",\"x\":-7263,\"y\":-7491,\"width\":160,\"height\":30,\"object\":\"272f1ad5-af56-44e1-85ee-076630bae401\"}}}";
 
         Map<String, String> map = new HashMap<>();
         map.put("classDefinition", "sap.modeling.cdt.msgFlow.Service");
