@@ -2,7 +2,6 @@ package com.sap.projectAndUtils;
 
 import java.util.Date;
 
-import com.alibaba.fastjson.JSON;
 
 public class JsonUtil {
 	class Person {
@@ -43,14 +42,5 @@ public class JsonUtil {
 			this.sex = sex;
 		}
 		
-	}
-	
-	public void generateJsonWithPrettyFormat() {
-		Person richard = new Person("Richard", "I350644", new Date(), true);
-		System.out.println(JSON.toJSONString(richard, true));
-	}
-	
-	public static void main(String[] args) {
-		new JsonUtil().generateJsonWithPrettyFormat();
 	}
 }

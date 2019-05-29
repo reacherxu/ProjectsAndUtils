@@ -5,12 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class FileUtil {
 
-	private final static Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
 	/**
 	 * 
@@ -34,14 +30,14 @@ public class FileUtil {
 			writer.write(content);
 			writer.flush();
 		} catch (IOException e) {
-			logger.error(e.getStackTrace().toString());
+            System.err.println(e.getStackTrace().toString());
 		} finally {
 			try {
 				if (writer != null) {
 					writer.close();
 				}
 			} catch (IOException e) {
-				logger.error("Error in closing the BufferedWritter" + e.getStackTrace().toString());
+                System.err.println("Error in closing the BufferedWritter" + e.getStackTrace().toString());
 			}
 		}
 	}
