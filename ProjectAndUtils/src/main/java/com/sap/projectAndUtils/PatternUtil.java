@@ -6,7 +6,6 @@ package com.sap.projectAndUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.junit.Test;
 
 /**

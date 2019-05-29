@@ -1,11 +1,8 @@
 package com.sap.projectAndUtils;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Date;
-
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class StringUtil {
@@ -19,16 +16,16 @@ public class StringUtil {
 	 */
 	@Test
 	public void testEquals() {
-		assertTrue(StringUtils.equals(null, null));
-		assertFalse(StringUtils.equals(null, "abc"));
-		assertFalse(StringUtils.equals("abc", null));
-		assertTrue(StringUtils.equals("abc", "abc"));
-		assertFalse(StringUtils.equals("abc", "ABC"));
+        Assert.assertTrue(StringUtils.equals(null, null));
+        Assert.assertFalse(StringUtils.equals(null, "abc"));
+        Assert.assertFalse(StringUtils.equals("abc", null));
+        Assert.assertTrue(StringUtils.equals("abc", "abc"));
+        Assert.assertFalse(StringUtils.equals("abc", "ABC"));
 	}
 	
 	@Test
 	public void testNull() {
-		assertTrue(StringUtils.isNotEmpty(" "));
+        Assert.assertTrue(StringUtils.isNotEmpty(" "));
 	}
 	
 	/**
