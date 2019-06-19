@@ -4,8 +4,11 @@
  */
 package com.sap.projectAndUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Test;
 
@@ -52,4 +55,16 @@ public class CollectionUtilsTest {
         System.out.println("差集:" + CollectionUtils.subtract(listA, listB));
     }
 
+    @Test
+    public void testSet() {
+        List<String> listA = Arrays.asList("1", "1", "2");
+        List<String> listB = Arrays.asList("1", "3", "2");
+        Set<String> set = new HashSet<String>();
+        set.addAll(listA);
+        set.addAll(listB);
+        System.out.println("result set is :" + set);
+
+        List<String> resultList = new ArrayList<String>(set);
+        System.out.println("result list is :" + resultList);
+    }
 }
