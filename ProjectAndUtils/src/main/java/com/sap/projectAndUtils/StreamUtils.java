@@ -28,6 +28,10 @@ public class StreamUtils {
 
         List<Integer> filterIntegers = numbers.stream().filter(i -> i >= 5).collect(Collectors.toList());
         System.out.println("filterIntegers : " + filterIntegers);
+
+        int x = 1;
+        long y = 3;
+        System.out.format("%s %s\n", x, y);
     }
 
     @Test
