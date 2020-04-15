@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import org.junit.Test;
 
 public class FileUtil {
 
@@ -41,4 +42,18 @@ public class FileUtil {
 			}
 		}
 	}
+
+    @Test
+    public void test() throws Exception {
+        // 表示classpath的路径，就是bin的绝对路径名
+        System.out.println(FileUtil.class.getResource("/"));
+        System.out.println(FileUtil.class.getClassLoader().getResource(""));
+        // System.out.println(ResourceUtils.getURL("classpath:").getPath());
+
+        // 表示当前类的folder的名字
+        System.out.println(FileUtil.class.getResource(""));
+
+        // 尽量不要使用user.dir,因为得出的结果各不相同
+        System.out.println(System.getProperty("user.dir"));
+    }
 }

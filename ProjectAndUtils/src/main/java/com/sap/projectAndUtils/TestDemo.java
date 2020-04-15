@@ -5,7 +5,8 @@
 package com.sap.projectAndUtils;
 
 import java.util.Arrays;
-
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Test;
 
 /**
@@ -58,6 +59,25 @@ public class TestDemo {
         }
         // 从结果看，前面3个可以复制的数据已经被存储了。剩下的则没有  
         System.out.println(Arrays.toString(o2)); // [1, 2, 3, null, null]  
+    }
 
+    @Test
+    public void testMapPut() {
+        Map<String, String> map = new HashMap<>();
+        map.putIfAbsent("key", "oldValue");
+        // 如果key存在，则忽略put操作
+        map.putIfAbsent("key", "newValue");
+        String value = map.get("key");
+        System.out.println(value);
+    }
+
+    @Test
+    public void testMapForeach() {
+        Map<String, String> map = new HashMap<>();
+        map.putIfAbsent("key1", "value1");
+        map.putIfAbsent("key2", "value1");
+        map.putIfAbsent("key3", "value1");
+
+        map.forEach((key, value) -> System.out.println(key + ":" + value));
     }
 }
