@@ -4,6 +4,7 @@
  */
 package com.sap.projectAndUtils;
 
+import java.util.Iterator;
 import java.util.List;
 import org.junit.Test;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -44,6 +45,8 @@ public class ObjectMapperUtil {
         List cList = objectMapper.readValue(booleanArray, java.util.List.class);
         System.out.println(objectMapper.writeValueAsString(cList));
         objectMapper.readTree(stringArray);
+
+        // d
     }
 
     /**
@@ -82,7 +85,7 @@ public class ObjectMapperUtil {
     }
 
     /**
-     * JSON反序列化为JasonNode对象
+     * JSON反序列化为JsonNode对象
      * 
      * @throws JsonMappingException
      * @throws JsonProcessingException
@@ -90,10 +93,36 @@ public class ObjectMapperUtil {
     @Test
     public void testReadJsonNode() throws JsonMappingException, JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        String json = "{ \"color\" : \"Black\", \"type\" : \"FIAT\" }";
+        String json = "{ \"color\" : \"Black\", \"type\" : \"FIAT\",\"quatity\" : 1  }";
         JsonNode jsonNode = objectMapper.readTree(json);
         String color = jsonNode.get("color").asText();
         System.err.println(color);
+        int quatity = jsonNode.get("quatity").asInt();
+        System.err.println(quatity);
+
+        // jsonNode的fieldNames方法是获取jsonNode的所有的key值以及对应的value值
+        Iterator<String> keys = jsonNode.fieldNames();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            System.out.println("key键是:" + key);
+            JsonNode value = jsonNode.findValue(key);
+            System.out.println("value键是:" + value);
+        }
+    }
+
+    @Test
+    public void testReadJsonArray() throws JsonMappingException, JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String arrayJson =
+                "[{\"number\":64,\"result\":\"SUCCESS\"},{\"number\":65,\"result\":\"FAILURE\"},{\"number\":66,\"result\":\"ABORTED\"},{\"number\":67,\"result\":\"SUCCESS\"}]";
+        JsonNode jsonNode = objectMapper.readTree(arrayJson);
+        // 如果是一个JsonNode数组，使用jsonNode.elements();读取数组中每个node
+        Iterator<JsonNode> elements = jsonNode.elements();
+        while (elements.hasNext()) {
+            JsonNode node = elements.next();
+            System.out.println(node.toString());
+        }
+
     }
 }
 

@@ -26,7 +26,7 @@ public class StringUtil {
 	}
 	
 	@Test
-	public void testNull() {
+    public void testReplacement() {
         Assert.assertTrue(StringUtils.isNotEmpty(" "));
 
         Pattern p = Pattern.compile("cat");
